@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ABYSS TATTOO | BRUTAL PERMANENCE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #030303;
+            color: #dddcd8;
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.25;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Grit texture (sabit) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 500 500' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='brutalNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23brutalNoise)' opacity='0.05'/%3E%3C/svg%3E");
+            opacity: 0.5;
+            mix-blend-mode: overlay;
+        }
+
+        h1, h2, h3, .brutal-title {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #fff 40%, #8a1c1c 90%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            border-top: 1px solid rgba(138, 28, 28, 0.3);
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            background: #030303cc;
+            backdrop-filter: blur(8px);
+            border-bottom: 2px solid #8a1c1c;
+            padding: 1rem 2rem;
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        .logo span {
+            color: #8a1c1c;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2.2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            transition: 0.2s;
+        }
+        .nav-links a:hover {
+            color: #b32b2b;
+        }
+        .lang-switch {
+            background: none;
+            border: 1px solid #8a1c1c;
+            color: #ccc;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .lang-switch:hover {
+            background: #8a1c1c;
+            color: #000;
+            border-color: #fff;
+        }
+        .mobile-toggle {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 3px solid #8a1c1c;
+        }
+        .hero-video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            filter: contrast(1.2) brightness(0.45) grayscale(0.3);
+        }
+        .ink-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: radial-gradient(circle at 30% 50%, rgba(139,0,0,0.15) 0%, rgba(0,0,0,0.6) 80%);
+            animation: inkShift 12s infinite alternate ease-in-out;
+            pointer-events: none;
+        }
+        @keyframes inkShift {
+            0% { background: radial-gradient(circle at 20% 40%, rgba(139,0,0,0.2) 0%, rgba(0,0,0,0.7) 80%); opacity: 0.7; }
+            50% { background: radial-gradient(circle at 80% 60%, rgba(180,30,30,0.25) 0%, #030303 90%); opacity: 0.9; }
+            100% { background: radial-gradient(circle at 40% 70%, rgba(100,10,10,0.2) 0%, #010101 85%); opacity: 0.8; }
+        }
+        .moving-grain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseDynamic'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseDynamic)' opacity='0.08'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 300px;
+            opacity: 0.4;
+            mix-blend-mode: overlay;
+            animation: grainMove 20s infinite linear;
+            pointer-events: none;
+            z-index: 1;
+        }
+        @keyframes grainMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 200px 200px; }
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(0,0,0,0.4) 0%, #030303 90%);
+            z-index: 1;
+        }
+        .hero-grid {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            gap: 1.5rem;
+        }
+        .hero-mantra {
+            font-size: clamp(3rem, 11vw, 7rem);
+            line-height: 1;
+            text-transform: uppercase;
+            font-weight: 900;
+            font-family: 'Syne', sans-serif;
+            color: #f0f0f0;
+            letter-spacing: -0.02em;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.6);
+        }
+        .hero-sub-mantra {
+            font-size: 1rem;
+            letter-spacing: 5px;
+            margin-top: 0.5rem;
+            color: #8a1c1c;
+            font-weight: 500;
+            text-transform: uppercase;
+            word-break: keep-all;
+        }
+        .hero-desc {
+            font-size: 1.2rem;
+            font-weight: 300;
+            max-width: 650px;
+            margin: 1rem auto 1.8rem;
+            color: #e0e0e0;
+            line-height: 1.5;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+        .btn-group-hero {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .brutal-btn {
+            background: none;
+            border: 2px solid #8a1c1c;
+            padding: 1rem 2rem;
+            color: #fff;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.25s linear;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.75rem;
+        }
+        .brutal-btn-primary {
+            background: #8a1c1c;
+            border-color: #8a1c1c;
+            color: #fff;
+        }
+        .brutal-btn-primary:hover {
+            background: transparent;
+            color: #8a1c1c;
+            border-color: #fff;
+        }
+        .brutal-btn-outline:hover {
+            background: #8a1c1c;
+            border-color: #fff;
+            color: #000;
+        }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: #bbb;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.6; }
+            50% { transform: translateX(-50%) translateY(8px); opacity: 1; }
+        }
+
+        /* MANIFESTO */
+        .manifesto-raw { background: #080808; }
+        .asym-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 3rem;
+        }
+        .manifesto-quote {
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: 'Syne', sans-serif;
+            line-height: 1.2;
+            text-transform: uppercase;
+            border-left: 6px solid #8a1c1c;
+            padding-left: 1.2rem;
+        }
+        .manifesto-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+            color: #bbb;
+            font-weight: 300;
+        }
+
+        /* ARTISTS */
+        .artists-brutal {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1px;
+            background-color: #1a1a1a;
+            border: 1px solid #222;
+        }
+        .artist-brut-card {
+            background: #050505;
+            padding: 2rem;
+            transition: 0.2s linear;
+            border-right: 1px solid #222;
+            border-bottom: 1px solid #222;
+        }
+        .artist-brut-card:hover {
+            background: #0f0f0f;
+            border-left: 3px solid #8a1c1c;
+        }
+        .artist-name-brut {
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: 'Syne', sans-serif;
+        }
+        .artist-tag {
+            color: #8a1c1c;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            margin: 0.5rem 0;
+        }
+
+        /* STYLES */
+        .styles-raw {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            border-top: 1px solid #2a2a2a;
+            border-bottom: 1px solid #2a2a2a;
+            padding: 2rem 0;
+        }
+        .style-raw-item {
+            width: 33%;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            border-right: 1px solid #222;
+        }
+        .style-raw-item:last-child { border-right: none; }
+
+        /* GALLERY */
+        .gallery-brut {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 280px;
+            gap: 8px;
+        }
+        .gallery-brut img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(0.8) contrast(1.2);
+            transition: all 0.5s;
+        }
+        .gallery-brut img:hover {
+            filter: grayscale(0) contrast(1.1);
+            transform: scale(0.98);
+        }
+        .span-2h { grid-column: span 2; }
+
+        /* PROCESS */
+        .process-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+            background: #000;
+        }
+        .process-node {
+            flex: 1;
+            background: #0b0b0b;
+            padding: 2rem;
+            border-right: 1px solid #8a1c1c;
+            text-align: center;
+        }
+        .proc-num {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #8a1c1c;
+            font-family: 'Syne', monospace;
+        }
+
+        /* FAQ */
+        .faq-brutal {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .faq-q {
+            background: #0b0b0b;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: #030303;
+            padding: 0 1.5rem;
+            color: #aaa;
+        }
+        .faq-a.show {
+            max-height: 180px;
+            padding: 1rem 1.5rem;
+        }
+
+        /* CTA */
+        .cta-brut {
+            background: #050505;
+            text-align: center;
+            padding: 5rem 2rem;
+            border-top: 3px solid #8a1c1c;
+            border-bottom: 3px solid #8a1c1c;
+        }
+        .cta-brut h2 {
+            font-size: clamp(2.8rem, 9vw, 6rem);
+            margin-bottom: 1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: #444;
+        }
+
+        @media (max-width: 900px) {
+            .hero-desc { font-size: 1rem; padding: 0 1rem; }
+            .btn-group-hero { gap: 1rem; }
+            .nav-right { flex-direction: row-reverse; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                background: #000000e6;
+                position: absolute;
+                top: 70px;
+                right: 0;
+                width: 100%;
+                padding: 2rem;
+                text-align: center;
+            }
+            .nav-links.active { display: flex; }
+            .mobile-toggle { display: block; }
+            .asym-grid { grid-template-columns: 1fr; }
+            .gallery-brut { grid-template-columns: repeat(2, 1fr); }
+            .styles-raw { flex-direction: column; }
+            .style-raw-item { width: 100%; border-right: none; border-bottom: 1px solid #222; }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.7s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="#" class="logo">ABYSS<span>.</span>INK</a>
+        <div class="nav-right">
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero" data-key="nav_home">HOME</a></li>
+                <li><a href="#artists" data-key="nav_artists">ARTISTS</a></li>
+                <li><a href="#gallery" data-key="nav_scars">SCARS</a></li>
+                <li><a href="#process" data-key="nav_ritual">RITUAL</a></li>
+                <li><a href="#faq" data-key="nav_faq">BRUTAL FAQ</a></li>
+                <li><a href="#cta" class="brutal-btn" style="padding:0.3rem 1rem;" data-key="nav_book">BOOK</a></li>
+            </ul>
+            <button class="lang-switch" id="langSwitch">TÜRKÇE</button>
+            <div class="mobile-toggle" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+    <video class="hero-video-bg" autoplay loop muted playsinline>
+        <source src="https://cdn.pixabay.com/video/2023/01/24/147776-790438955_large.mp4" type="video/mp4">
+    </video>
+    <div class="ink-animation"></div>
+    <div class="moving-grain"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-grid">
+        <div class="hero-mantra" data-key="hero_title">SKIN IS MEMORY</div>
+        <div class="hero-sub-mantra" data-key="hero_sub">⟡ PERMANENT IDENTITY / NO COMPROMISE ⟡</div>
+        <div class="hero-desc" data-key="hero_desc">High-contrast blackwork, realism & geometric precision. No generic ink. Only bespoke permanence.</div>
+        <div class="btn-group-hero">
+            <a href="#cta" class="brutal-btn brutal-btn-primary" data-key="hero_btn1">⟡ BOOK SESSION ⟡</a>
+            <a href="#gallery" class="brutal-btn brutal-btn-outline" data-key="hero_btn2">VIEW PORTFOLIO</a>
+        </div>
+    </div>
+    <div class="scroll-indicator">
+        <span data-key="scroll">SCROLL</span>
+        <i class="fas fa-chevron-down"></i>
+    </div>
+</section>
+
+<!-- Manifesto -->
+<section class="section manifesto-raw reveal" id="about">
+    <div class="asym-grid">
+        <div class="manifesto-quote" data-key="manifesto_quote">"MORE THAN INK — A covenant of permanence"</div>
+        <div class="manifesto-text">
+            <p data-key="manifesto_p1">Abyss isn't a parlor. It's a sanctuary for those who demand heavy weight in every line. No generic flash, no second thoughts. Each piece is built from ground zero — consultation, custom art, surgical application. Our ethos: brutal honesty, premium sterility, and uncompromising artistic direction.</p>
+            <p data-key="manifesto_p2">You don't choose a design. You commission a legacy. Blackwork, fine line, hyperrealism — executed with industrial discipline and creative ferocity.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Artists -->
+<section id="artists" class="section reveal">
+    <h2 data-key="artists_title">INHABITANTS OF OBSESSION</h2>
+    <div class="artists-brutal">
+        <div class="artist-brut-card">
+            <div class="artist-name-brut">Kaelan V. <span style="color:#8a1c1c;">//</span></div>
+            <div class="artist-tag" data-key="artist1_tag">BLACKWORK · GEOMETRIC</div>
+            <div style="font-size:0.9rem; margin-top:0.8rem;" data-key="artist1_bio">Precision architect. Dark abstraction, structural tension. 11 years of monochromatic dominance.</div>
+        </div>
+        <div class="artist-brut-card">
+            <div class="artist-name-brut">Sage Moriyama <span style="color:#8a1c1c;">//</span></div>
+            <div class="artist-tag" data-key="artist2_tag">REALISM · PORTRAITURE</div>
+            <div style="font-size:0.9rem; margin-top:0.8rem;" data-key="artist2_bio">Hyperrealistic souls on skin. Every scar, every emotion. Award-winning realism specialist.</div>
+        </div>
+        <div class="artist-brut-card">
+            <div class="artist-name-brut">Elias Grave <span style="color:#8a1c1c;">//</span></div>
+            <div class="artist-tag" data-key="artist3_tag">FINE LINE · LETTERING</div>
+            <div style="font-size:0.9rem; margin-top:0.8rem;" data-key="artist3_bio">Minimalist but deadly. Precision typography, delicate narratives, lasting impact.</div>
+        </div>
+    </div>
+</section>
+
+<!-- Styles -->
+<section class="section reveal">
+    <h2 data-key="styles_title">DISCIPLINES</h2>
+    <div class="styles-raw">
+        <div class="style-raw-item" data-key="style1">BLACKWORK MONOLITH</div>
+        <div class="style-raw-item" data-key="style2">HYPERREALISM</div>
+        <div class="style-raw-item" data-key="style3">GEOMETRIC / SACRED</div>
+        <div class="style-raw-item" data-key="style4">FINE LINE ETCHING</div>
+        <div class="style-raw-item" data-key="style5">JAPANESE BOLD</div>
+        <div class="style-raw-item" data-key="style6">CUSTOM LETTERING</div>
+    </div>
+</section>
+
+<!-- Gallery -->
+<section id="gallery" class="section reveal">
+    <h2 data-key="gallery_title">VISUAL SCARS</h2>
+    <div class="gallery-brut">
+        <img src="https://i.pinimg.com/1200x/99/f2/bf/99f2bf796c7d4256c26ac0c3574bf681.jpg" alt="tattoo brutal">
+        <img src="https://i.pinimg.com/736x/97/0b/47/970b47802f04696a1cb90aab04a10fe7.jpg" alt="realism">
+        <img src="https://i.pinimg.com/736x/05/c4/3b/05c43be720defa02ee9321ea18d396df.jpg" alt="blackwork">
+        <img src="https://i.pinimg.com/736x/92/5e/93/925e93c20ba1c85bd6caffad70566026.jpg" alt="geometric">
+        <img src="https://i.pinimg.com/736x/4f/9c/7f/4f9c7ffe02f4c6fe7a343cdfe781abc7.jpg" alt="fine line" class="span-2h">
+        <img src="https://i.pinimg.com/1200x/a4/dc/12/a4dc12e1f0d6676e6feff1c9a1c5f7a6.jpg" alt="detail">
+        <img src="https://i.pinimg.com/1200x/c1/7a/64/c17a64fc4459ba127675713b086b0279.jpg" alt="full sleeve">
+    </div>
+</section>
+
+<!-- Process -->
+<section id="process" class="section reveal">
+    <h2 data-key="process_title">THE RITUAL PROCESS</h2>
+    <div class="process-strip">
+        <div class="process-node"><div class="proc-num">01.</div><div data-key="proc1_title">CONCEPT DIALOGUE</div><div style="font-size:0.75rem;" data-key="proc1_desc">deep session, blueprint</div></div>
+        <div class="process-node"><div class="proc-num">02.</div><div data-key="proc2_title">CUSTOM ART</div><div style="font-size:0.75rem;" data-key="proc2_desc">sketch & refine until brutal honesty</div></div>
+        <div class="process-node"><div class="proc-num">03.</div><div data-key="proc3_title">STERILE SESSION</div><div style="font-size:0.75rem;" data-key="proc3_desc">medical grade / no compromises</div></div>
+        <div class="process-node"><div class="proc-num">04.</div><div data-key="proc4_title">AFTERCARE CODE</div><div style="font-size:0.75rem;" data-key="proc4_desc">healing guidance + touch-up</div></div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="section reveal">
+    <h2 data-key="faq_title">NO BULLSHIT FAQ</h2>
+    <div class="faq-brutal">
+        <div class="faq-item"><div class="faq-q" data-key="faq_q1">Pain level? <span>+</span></div><div class="faq-a" data-key="faq_a1">From “tolerable scratch” to “deep meditation”. We use advanced numbing protocols and control the pace. You’ll survive, and earn the mark.</div></div>
+        <div class="faq-item"><div class="faq-q" data-key="faq_q2">Price range? <span>+</span></div><div class="faq-a" data-key="faq_a2">Custom pieces start from $200/hr. Full consultation gives exact quote. No hidden fees — only honest pricing for lifetime art.</div></div>
+        <div class="faq-item"><div class="faq-q" data-key="faq_q3">Booking & deposit? <span>+</span></div><div class="faq-a" data-key="faq_a3">Fill the form at final CTA. Deposit required to secure appointment, deducted from final cost. Slots limited — we value quality over quantity.</div></div>
+        <div class="faq-item"><div class="faq-q" data-key="faq_q4">Healing duration? <span>+</span></div><div class="faq-a" data-key="faq_a4">2-4 weeks for surface healing, full stabilization up to 2 months. We provide detailed aftercare kit & remote check.</div></div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" class="cta-brut reveal">
+    <h2 data-key="cta_title">WEAR YOUR STORY.<br>PERMANENTLY.</h2>
+    <div style="margin: 1.5rem 0;" data-key="cta_sub">Limited availability — secure your consultation now</div>
+    <a href="#" class="brutal-btn brutal-btn-primary" style="background:#8a1c1c; border-color:#fff; color:#fff;" data-key="cta_btn">⟡ BOOK CONSULTATION ⟡</a>
+    <div style="margin-top: 1.2rem; font-size:0.7rem;" data-key="cta_note">Hand-drawn concepts only. No walk-ins for custom work.</div>
+</section>
+
+<footer>
+    <span data-key="footer1">ABYSS TATTOO STUDIO — BRUTALIST CODE // PREMIUM PERMANENCE // EST. 2019</span><br>
+    <span data-key="footer2">WE DON’T DO SOFT.</span>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+<script>
+    // Dil verileri (yeni marka ismiyle güncellendi)
+    const translations = {
+        en: {
+            nav_home: "HOME", nav_artists: "ARTISTS", nav_scars: "SCARS", nav_ritual: "RITUAL", nav_faq: "BRUTAL FAQ", nav_book: "BOOK",
+            hero_title: "SKIN IS MEMORY", hero_sub: "⟡ PERMANENT IDENTITY / NO COMPROMISE ⟡",
+            hero_desc: "High-contrast blackwork, realism & geometric precision. No generic ink. Only bespoke permanence.",
+            hero_btn1: "⟡ BOOK SESSION ⟡", hero_btn2: "VIEW PORTFOLIO", scroll: "SCROLL",
+            manifesto_quote: "\"MORE THAN INK — A covenant of permanence\"",
+            manifesto_p1: "Abyss isn't a parlor. It's a sanctuary for those who demand heavy weight in every line. No generic flash, no second thoughts. Each piece is built from ground zero — consultation, custom art, surgical application. Our ethos: brutal honesty, premium sterility, and uncompromising artistic direction.",
+            manifesto_p2: "You don't choose a design. You commission a legacy. Blackwork, fine line, hyperrealism — executed with industrial discipline and creative ferocity.",
+            artists_title: "INHABITANTS OF OBSESSION",
+            artist1_tag: "BLACKWORK · GEOMETRIC", artist1_bio: "Precision architect. Dark abstraction, structural tension. 11 years of monochromatic dominance.",
+            artist2_tag: "REALISM · PORTRAITURE", artist2_bio: "Hyperrealistic souls on skin. Every scar, every emotion. Award-winning realism specialist.",
+            artist3_tag: "FINE LINE · LETTERING", artist3_bio: "Minimalist but deadly. Precision typography, delicate narratives, lasting impact.",
+            styles_title: "DISCIPLINES",
+            style1: "BLACKWORK MONOLITH", style2: "HYPERREALISM", style3: "GEOMETRIC / SACRED", style4: "FINE LINE ETCHING", style5: "JAPANESE BOLD", style6: "CUSTOM LETTERING",
+            gallery_title: "VISUAL SCARS",
+            process_title: "THE RITUAL PROCESS",
+            proc1_title: "CONCEPT DIALOGUE", proc1_desc: "deep session, blueprint",
+            proc2_title: "CUSTOM ART", proc2_desc: "sketch & refine until brutal honesty",
+            proc3_title: "STERILE SESSION", proc3_desc: "medical grade / no compromises",
+            proc4_title: "AFTERCARE CODE", proc4_desc: "healing guidance + touch-up",
+            faq_title: "NO BULLSHIT FAQ",
+            faq_q1: "Pain level? +", faq_a1: "From “tolerable scratch” to “deep meditation”. We use advanced numbing protocols and control the pace. You’ll survive, and earn the mark.",
+            faq_q2: "Price range? +", faq_a2: "Custom pieces start from $200/hr. Full consultation gives exact quote. No hidden fees — only honest pricing for lifetime art.",
+            faq_q3: "Booking & deposit? +", faq_a3: "Fill the form at final CTA. Deposit required to secure appointment, deducted from final cost. Slots limited — we value quality over quantity.",
+            faq_q4: "Healing duration? +", faq_a4: "2-4 weeks for surface healing, full stabilization up to 2 months. We provide detailed aftercare kit & remote check.",
+            cta_title: "WEAR YOUR STORY.<br>PERMANENTLY.", cta_sub: "Limited availability — secure your consultation now", cta_btn: "⟡ BOOK CONSULTATION ⟡", cta_note: "Hand-drawn concepts only. No walk-ins for custom work.",
+            footer1: "ABYSS TATTOO STUDIO — BRUTALIST CODE // PREMIUM PERMANENCE // EST. 2019", footer2: "WE DON’T DO SOFT."
+        },
+        tr: {
+            nav_home: "ANA SAYFA", nav_artists: "SANATÇILAR", nav_scars: "İZLER", nav_ritual: "RİTÜEL", nav_faq: "SERT SIK SORULANLAR", nav_book: "RANDEVU",
+            hero_title: "DERİ HAFIZADIR", hero_sub: "⟡ KALICI KİMLİK / TAVİZ YOK ⟡",
+            hero_desc: "Yüksek kontrastlı blackwork, realizm ve geometrik hassasiyet. Sıradan mürekkep yok. Sadece size özel kalıcılık.",
+            hero_btn1: "⟡ RANDEVU AL ⟡", hero_btn2: "PORTFÖYÜ İNCELE", scroll: "KAYDIR",
+            manifesto_quote: "\"MÜREKKEPTEN ÖTE — Kalıcılık antlaşması\"",
+            manifesto_p1: "Abyss bir dövme salonu değil. Her çizgide ağırlık isteyenler için bir kutsal alan. Sıradan flash desenler yok, ikinci düşünce yok. Her parça sıfırdan inşa edilir — danışma, özel tasarım, cerrahi uygulama. Etik: acımasız dürüstlük, premium hijyen ve tavizsiz sanatsal yön.",
+            manifesto_p2: "Bir desen seçmezsiniz. Bir miras sipariş edersiniz. Blackwork, fine line, hiperrealizm — endüstriyel disiplin ve yaratıcı vahşetle işlenir.",
+            artists_title: "TAKINTININ SAKİNLERİ",
+            artist1_tag: "BLACKWORK · GEOMETRİK", artist1_bio: "Hassasiyet mimarı. Koyu soyutlama, yapısal gerilim. 11 yıllık monokromatik hakimiyet.",
+            artist2_tag: "REALİZM · PORTRECİLİK", artist2_bio: "Deri üzerinde hiperrealist ruhlar. Her iz, her duygu. Ödüllü realizm uzmanı.",
+            artist3_tag: "İNCE ÇİZGİ · HARFLEME", artist3_bio: "Minimalist ama ölümcül. Hassas tipografi, ince anlatılar, kalıcı etki.",
+            styles_title: "DİSİPLİNLER",
+            style1: "SİYAH İŞ MONOLİT", style2: "HİPERREALİZM", style3: "GEOMETRİK / KUTSAL", style4: "İNCE ÇİZGİ KAZIMA", style5: "JAPON DÖVME", style6: "ÖZEL HARFLEME",
+            gallery_title: "GÖRSEL İZLER",
+            process_title: "RİTÜEL SÜRECİ",
+            proc1_title: "KONSEPT DİYALOĞU", proc1_desc: "derin oturum, taslak",
+            proc2_title: "ÖZEL TASARIM", proc2_desc: "acımasız dürüstlüğe kadar çizim ve iyileştirme",
+            proc3_title: "STERİL OTURUM", proc3_desc: "medikal standart / taviz yok",
+            proc4_title: "SONBAKIM KODU", proc4_desc: "iyileşme rehberliği + rötuş",
+            faq_title: "LAF OLMASIN SIK SORULANLAR",
+            faq_q1: "Acı seviyesi? +", faq_a1: "Dayanılabilir çizikten derin meditasyona. Gelişmiş uyuşturma protokolleri ve hız kontrolü. Hayatta kalırsın ve izi kazanırsın.",
+            faq_q2: "Fiyat aralığı? +", faq_a2: "Özel çalışmalar saatlik $200'den başlar. Detaylı danışma net teklif verir. Gizli ücret yok — ömürlük sanat için şeffaf fiyat.",
+            faq_q3: "Randevu ve depozito? +", faq_a3: "Son CTA'daki formu doldur. Randevu için depozito gerekir, toplam ücretten düşülür. Sınırlı kontenjan — kaliteyi niceliğe tercih ediyoruz.",
+            faq_q4: "İyileşme süresi? +", faq_a4: "Yüzeysel iyileşme 2-4 hafta, tam stabilizasyon 2 aya kadar. Detaylı bakım kiti ve uzaktan kontrol sağlıyoruz.",
+            cta_title: "HİKAYENİ GİY.<br>KALICI OLARAK.", cta_sub: "Sınırlı kontenjan — şimdi danışmanlığını ayırt", cta_btn: "⟡ DANIŞMA RANDEVUSU ⟡", cta_note: "Sadece özel çizim. Hazır dövme yok.",
+            footer1: "ABYSS DÖVME STÜDYOSU — BRÜTAL KOD // PREMIUM KALICILIK // 2019", footer2: "YUMUŞAKLIĞA YER YOK."
+        }
+    };
+
+    let currentLang = 'tr'; // Varsayılan Türkçe (kullanıcı Türkçe seçeneği ekle dediği için)
+    const langSwitchBtn = document.getElementById('langSwitch');
+
+    function updateLanguage(lang) {
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (translations[lang][key]) {
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.value = translations[lang][key];
+                } else {
+                    el.innerHTML = translations[lang][key];
+                }
+            }
+        });
+        langSwitchBtn.innerText = lang === 'en' ? 'TÜRKÇE' : 'ENGLISH';
+        currentLang = lang;
+    }
+
+    langSwitchBtn.addEventListener('click', () => {
+        const newLang = currentLang === 'en' ? 'tr' : 'en';
+        updateLanguage(newLang);
+    });
+
+    // Başlangıç dili Türkçe
+    updateLanguage('tr');
+
+    // Mobil menü
+    const mobileToggle = document.getElementById('mobileMenuBtn');
+    const navList = document.getElementById('navLinks');
+    mobileToggle?.addEventListener('click', () => navList.classList.toggle('active'));
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === "#") return;
+            const target = document.querySelector(targetId);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
+                if (navList.classList.contains('active')) navList.classList.remove('active');
+            }
+        });
+    });
+
+    // Reveal observer
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: "0px 0px -20px 0px" });
+    reveals.forEach(el => observer.observe(el));
+
+    // FAQ accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const questionDiv = item.querySelector('.faq-q');
+        const answerDiv = item.querySelector('.faq-a');
+        questionDiv.addEventListener('click', () => {
+            answerDiv.classList.toggle('show');
+            const iconSpan = questionDiv.querySelector('span');
+            if (answerDiv.classList.contains('show')) iconSpan.innerHTML = '−';
+            else iconSpan.innerHTML = '+';
+        });
+    });
+
+    // navbar scroll
+    window.addEventListener('scroll', () => {
+        const nav = document.querySelector('.navbar');
+        if (window.scrollY > 10) {
+            nav.style.backgroundColor = '#030303f2';
+            nav.style.borderBottom = '2px solid #b32b2b';
+        } else {
+            nav.style.backgroundColor = '#030303cc';
+            nav.style.borderBottom = '2px solid #8a1c1c';
+        }
+    });
+
+    // Stagger animasyonu
+    const mantra = document.querySelector('.hero-mantra');
+    if (mantra) {
+        const words = mantra.innerText.split(' ');
+        mantra.innerHTML = words.map(w => `<span style="display:inline-block; opacity:0; transform: translateY(25px); transition: all 0.6s cubic-bezier(0.2,0.9,0.4,1.1);">${w}</span>`).join(' ');
+        setTimeout(() => {
+            const spans = mantra.querySelectorAll('span');
+            spans.forEach((span, i) => setTimeout(() => { span.style.opacity = '1'; span.style.transform = 'translateY(0)'; }, i * 100));
+        }, 200);
+    }
+    const subMantra = document.querySelector('.hero-sub-mantra');
+    if (subMantra) { subMantra.style.opacity = '0'; subMantra.style.transform = 'translateY(20px)'; setTimeout(() => { subMantra.style.transition = 'all 0.6s 0.3s ease'; subMantra.style.opacity = '1'; subMantra.style.transform = 'translateY(0)'; }, 400); }
+    const heroDesc = document.querySelector('.hero-desc');
+    if (heroDesc) { heroDesc.style.opacity = '0'; heroDesc.style.transform = 'translateY(20px)'; setTimeout(() => { heroDesc.style.transition = 'all 0.6s 0.5s ease'; heroDesc.style.opacity = '1'; heroDesc.style.transform = 'translateY(0)'; }, 500); }
+    const btns = document.querySelector('.btn-group-hero');
+    if (btns) { btns.style.opacity = '0'; btns.style.transform = 'translateY(20px)'; setTimeout(() => { btns.style.transition = 'all 0.6s 0.7s ease'; btns.style.opacity = '1'; btns.style.transform = 'translateY(0)'; }, 700); }
+</script>
+</body>
+</html>
